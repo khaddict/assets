@@ -34,7 +34,7 @@ python main.py
 ==================================================
             What would you like to do?            
 ==================================================
-1. 🪙 Gold Portfolio
+1. 💰 Gold Portfolio
 2. 📄 Receivables
 3. 🏦 Cash Overview
 4. 📉 Stock Portfolio
@@ -45,7 +45,7 @@ q. 🚪 Exit
 ==================================================
 👉 Your choice: 1
 ==================================================
-            🪙 Gold Portfolio Details             
+             💰 Gold Portfolio Details             
 ==================================================
 Maple Leaf 🍁
     - Purchase date: 2023-06-20
@@ -56,7 +56,7 @@ Maple Leaf 🍁
     - Capital gain tax (36.2%): 304.08€
     - Tax regime: capital gain (tax = 304.08€)
     💸 Net received: 2535.92€
-Gold Bar 100g 🪙
+Gold Bar 100g 💰
     - Purchase date: 2025-04-07
     - Purchase price: 8000.00€
     - Sell price: 9036.50€
@@ -66,14 +66,14 @@ Gold Bar 100g 🪙
     - Tax regime: capital gain (tax = 375.21€)
     💸 Net received: 8661.29€
 ==================================================
-                 🪙 Gold Summary                  
+                  💰 Gold Summary                  
 ==================================================
 Maple Leaf 🍁 (1 units)
   - Total gross: 2840.00€
   - Total tax: 304.08€
   💸 Net received: 2535.92€
 
-Gold Bar 100g 🪙 (1 units)
+Gold Bar 100g 💰 (1 units)
   - Total gross: 9036.50€
   - Total tax: 375.21€
   💸 Net received: 8661.29€
@@ -84,7 +84,7 @@ Gold Bar 100g 🪙 (1 units)
 ==================================================
             What would you like to do?            
 ==================================================
-1. 🪙 Gold Portfolio
+1. 💰 Gold Portfolio
 2. 📄 Receivables
 3. 🏦 Cash Overview
 4. 📉 Stock Portfolio
@@ -106,7 +106,7 @@ q. 🚪 Exit
 ==================================================
             What would you like to do?            
 ==================================================
-1. 🪙 Gold Portfolio
+1. 💰 Gold Portfolio
 2. 📄 Receivables
 3. 🏦 Cash Overview
 4. 📉 Stock Portfolio
@@ -121,9 +121,9 @@ q. 🚪 Exit
 ==================================================
 🏠 Home Cash: 100.00€
 🏦 Checking Account: 200.00€
-📘 Livret A: 1000.00€
+📕 Livret A: 1000.00€
 🌱 LDDS: 500.00€
-🏛️  BFM: 300.00€
+📘 BFM: 300.00€
 
 🤑 Total Cash: 2100.00€
 ==================================================
@@ -131,7 +131,7 @@ q. 🚪 Exit
 ==================================================
             What would you like to do?            
 ==================================================
-1. 🪙 Gold Portfolio
+1. 💰 Gold Portfolio
 2. 📄 Receivables
 3. 🏦 Cash Overview
 4. 📉 Stock Portfolio
@@ -157,7 +157,7 @@ q. 🚪 Exit
 ==================================================
             What would you like to do?            
 ==================================================
-1. 🪙 Gold Portfolio
+1. 💰 Gold Portfolio
 2. 📄 Receivables
 3. 🏦 Cash Overview
 4. 📉 Stock Portfolio
@@ -181,7 +181,7 @@ q. 🚪 Exit
 ==================================================
             What would you like to do?            
 ==================================================
-1. 🪙 Gold Portfolio
+1. 💰 Gold Portfolio
 2. 📄 Receivables
 3. 🏦 Cash Overview
 4. 📉 Stock Portfolio
@@ -202,7 +202,7 @@ Apr 2025 | ███████████████████████
 ==================================================
             What would you like to do?            
 ==================================================
-1. 🪙 Gold Portfolio
+1. 💰 Gold Portfolio
 2. 📄 Receivables
 3. 🏦 Cash Overview
 4. 📉 Stock Portfolio
@@ -225,7 +225,7 @@ q. 🚪 Exit
 ==================================================
             What would you like to do?            
 ==================================================
-1. 🪙 Gold Portfolio
+1. 💰 Gold Portfolio
 2. 📄 Receivables
 3. 🏦 Cash Overview
 4. 📉 Stock Portfolio

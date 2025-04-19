@@ -7,20 +7,20 @@ DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/123456789/abcdefghijklmn
 ACCOUNTS = {
     "🏠 Home Cash": 100,
     "🏦 Checking Account": 200,
-    "📘 Livret A": 1000,
+    "📕 Livret A": 1000,
     "🌱 LDDS": 500,
-    "🏛️  BFM": 300
+    "📘 BFM": 300
 }
 
 # Gold
 PRODUCT_URLS = {
-    "Gold Bar 100g 🪙": "https://www.achat-or-et-argent.fr/or/lingot-100g-or/3557",
+    "Gold Bar 100g 💰": "https://www.achat-or-et-argent.fr/or/lingot-100g-or/3557",
     "Maple Leaf 🍁": "https://www.achat-or-et-argent.fr/or/maple-leaf-1-once-or/3192"
 }
 
 GOLD_PORTFOLIO = [
     ("Maple Leaf 🍁", "2023-06-20", 2000),
-    ("Gold Bar 100g 🪙", "2025-04-07", 8000)
+    ("Gold Bar 100g 💰", "2025-04-07", 8000)
 ]
 
 # Gold taxes

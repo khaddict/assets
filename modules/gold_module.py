@@ -67,7 +67,7 @@ def gold_summary():
     """
     Display a summary of the gold portfolio with per-asset and total values.
     """
-    print("🪙 Gold Portfolio Details".center(50))
+    print("💰 Gold Portfolio Details".center(50))
     print("=" * 50)
     stats = defaultdict(lambda: {"gross": 0, "tax": 0, "net": 0, "count": 0})
     prices = {name: fetch_price(url) for name, url in PRODUCT_URLS.items()}
@@ -99,7 +99,7 @@ def gold_summary():
         stat["count"] += 1
 
     print("=" * 50)
-    print("🪙 Gold Summary".center(50))
+    print("💰 Gold Summary".center(50))
     print("=" * 50)
     for name, stat in stats.items():
         print(f"{name} ({stat['count']} units)")

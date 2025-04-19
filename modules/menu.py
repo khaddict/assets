@@ -27,7 +27,7 @@ def print_menu():
     """
     print("What would you like to do?".center(50))
     print("=" * 50)
-    print("1. 🪙 Gold Portfolio")
+    print("1. 💰 Gold Portfolio")
     print("2. 📄 Receivables")
     print("3. 🏦 Cash Overview")
     print("4. 📉 Stock Portfolio")
