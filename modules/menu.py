@@ -1,20 +1,33 @@
+"""
+This module provides the main menu for managing and displaying your financial portfolio.
+"""
+
 from modules.gold_module import gold_summary
 from modules.receivables_module import receivables_summary
 from modules.cash_module import cash_summary
 from modules.stocks_module import stocks_summary
 from modules.summary_module import overall_summary
 from modules.graph_module import show_portfolio_evolution
-from modules.send_financial_data import send_overall_summary_to_discord, send_portfolio_evolution_to_discord
+from modules.send_financial_data import (
+    send_overall_summary_to_discord,
+    send_portfolio_evolution_to_discord
+)
 
 def print_title():
+    """
+    Prints the welcome title.
+    """
     print("=" * 50)
     print("🧭  Welcome to Your Assets Dashboard".center(50))
     print("=" * 50)
 
 def print_menu():
+    """
+    Prints the menu of available options.
+    """
     print("What would you like to do?".center(50))
     print("=" * 50)
-    print("1. 🪙  Gold Portfolio")
+    print("1. 🪙 Gold Portfolio")
     print("2. 📄 Receivables")
     print("3. 🏦 Cash Overview")
     print("4. 📉 Stock Portfolio")
@@ -25,6 +38,9 @@ def print_menu():
     print("=" * 50)
 
 def main_menu():
+    """
+    Main loop that displays the menu and handles user input.
+    """
     while True:
         print_title()
         print_menu()
