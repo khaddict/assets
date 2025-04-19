@@ -14,13 +14,13 @@ ACCOUNTS = {
 
 # Gold
 PRODUCT_URLS = {
-    "Gold Bar 100g 🪙 ": "https://www.achat-or-et-argent.fr/or/lingot-100g-or/3557",
+    "Gold Bar 100g 🪙": "https://www.achat-or-et-argent.fr/or/lingot-100g-or/3557",
     "Maple Leaf 🍁": "https://www.achat-or-et-argent.fr/or/maple-leaf-1-once-or/3192"
 }
 
 GOLD_PORTFOLIO = [
     ("Maple Leaf 🍁", "2023-06-20", 2000),
-    ("Gold Bar 100g 🪙 ", "2025-04-07", 8000)
+    ("Gold Bar 100g 🪙", "2025-04-07", 8000)
 ]
 
 # Gold taxes
@@ -44,6 +44,6 @@ RECEIVABLES = [
 
 # Portfolio evolution
 PORTFOLIO_EVOLUTION = {
-    "Mar 2025": 11066.12
+    "Mar 2025": 11066.12,
     "Apr 2025": 16077.21
 }
