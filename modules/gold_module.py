@@ -21,7 +21,7 @@ def fetch_price(url):
             price_text = price_element.text.strip()
             clean_price = price_text.replace(' ', '').replace('€', '').replace(',', '.')
             return float(clean_price)
-    except Exception as e:
+    except ImportError as e:
         print(f"Error fetching price ({url}): {e}")
     return None
 
