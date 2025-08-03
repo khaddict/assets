@@ -17,7 +17,7 @@ def plot_graph(data: dict, title: str):
     print("=" * 50)
 
     for label, value in data.items():
-        bar = "█" * int(value / (max(data.values()) / 40))
+        bar = "█" * int(value / (max(data.values()) / 20))
         print(f"{label.ljust(max(len(str(label)) for label in data))} | {bar} {value:.2f} €")
 
 def show_portfolio_evolution():
