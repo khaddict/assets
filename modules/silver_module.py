@@ -1,12 +1,13 @@
 """
-Gold Portfolio Management: Handles price fetching, tax calculations, and net value computation 
-for a gold portfolio using external product URLs and tax rates.
+Silver Portfolio Management: Handles price fetching, tax calculations, and net value computation 
+for a silver portfolio using external product URLs and tax rates.
 """
 
 from collections import defaultdict
 from bs4 import BeautifulSoup
 import requests
-from config import PRODUCT_URLS, GOLD_PORTFOLIO, FLAT_TAX_RATE, CAPITAL_GAIN_TAX_RATE
+from config import PRODUCT_URLS, SILVER_PORTFOLIO, FLAT_TAX_RATE, CAPITAL_GAIN_TAX_RATE
+
 
 def fetch_price(url):
     """
@@ -15,15 +16,18 @@ def fetch_price(url):
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, "html.parser")
         price_element = soup.find(id="pv")
         if price_element:
             price_text = price_element.text.strip()
-            clean_price = price_text.replace(' ', '').replace('€', '').replace(',', '.')
+            clean_price = (
+                price_text.replace(" ", "").replace("€", "").replace(",", ".")
+            )
             return float(clean_price)
     except ImportError as e:
         print(f"Error fetching price ({url}): {e}")
     return None
+
 
 def compute_taxes(buy_price, sell_price):
     """
@@ -37,9 +41,12 @@ def compute_taxes(buy_price, sell_price):
     net = sell_price - tax
     return capital_gain, flat_tax, capital_gain_tax, tax, regime, net
 
-def display_gold_details(name, date_str, buy_price, sell_price, gain, flat_tax, gain_tax, tax, regime, net):
+
+def display_silver_details(
+    name, date_str, buy_price, sell_price, gain, flat_tax, gain_tax, tax, regime, net
+):
     """
-    Print detailed gold asset information.
+    Print detailed silver asset information.
     """
     print(f"{name}")
     print(f"    - Purchase date: {date_str}")
@@ -51,35 +58,43 @@ def display_gold_details(name, date_str, buy_price, sell_price, gain, flat_tax, 
     print(f"    - Tax regime: {regime} (tax = {tax:.2f}€)")
     print(f"    💸 Net received: {net:.2f}€")
 
-def get_total_net_gold(prices):
+
+def get_total_net_silver(prices):
     """
-    Calculate the total net value of all gold assets.
+    Calculate the total net value of all silver assets.
     """
     total_net = 0
-    for name, _, buy_price in GOLD_PORTFOLIO:
+    for name, _, buy_price in SILVER_PORTFOLIO:
         sell_price = prices.get(name)
         if sell_price:
             _, _, _, _, _, net = compute_taxes(buy_price, sell_price)
             total_net += net
     return total_net
 
-def gold_summary():
-    """
-    Display a summary of the gold portfolio with per-asset and total values.
-    """
-    print("💰 Gold Portfolio Details".center(50))
-    print("=" * 50)
-    stats = defaultdict(lambda: {"gross": 0, "tax": 0, "net": 0, "count": 0})
-    prices = {name: fetch_price(url) for name, url in PRODUCT_URLS.items()}
 
-    for name, date_str, buy_price in GOLD_PORTFOLIO:
+def silver_summary():
+    """
+    Display a summary of the silver portfolio with per-asset and total values.
+    """
+    print("🥈 Silver Portfolio Details".center(50))
+    print("=" * 50)
+
+    stats = defaultdict(lambda: {"gross": 0, "tax": 0, "net": 0, "count": 0})
+
+    # Only fetch prices for products that appear in the silver portfolio
+    product_urls = {name: PRODUCT_URLS[name] for name, _, _ in SILVER_PORTFOLIO}
+    prices = {name: fetch_price(url) for name, url in product_urls.items()}
+
+    for name, date_str, buy_price in SILVER_PORTFOLIO:
         sell_price = prices.get(name)
         if sell_price is None:
             print(f"❌ Sell price not available for: {name}\n")
             continue
 
-        gain, flat_tax, gain_tax, tax, regime, net = compute_taxes(buy_price, sell_price)
-        display_gold_details(
+        gain, flat_tax, gain_tax, tax, regime, net = compute_taxes(
+            buy_price, sell_price
+        )
+        display_silver_details(
             name,
             date_str,
             buy_price,
@@ -89,7 +104,7 @@ def gold_summary():
             gain_tax,
             tax,
             regime,
-            net
+            net,
         )
 
         stat = stats[name]
@@ -99,7 +114,7 @@ def gold_summary():
         stat["count"] += 1
 
     print("=" * 50)
-    print("💰 Gold Summary".center(50))
+    print("🥈 Silver Summary".center(50))
     print("=" * 50)
     for name, stat in stats.items():
         print(f"{name} ({stat['count']} units)")
@@ -107,5 +122,5 @@ def gold_summary():
         print(f"  - Total tax: {stat['tax']:.2f}€")
         print(f"  💸 Net received: {stat['net']:.2f}€\n")
 
-    total_net = get_total_net_gold(prices)
-    print(f"💰 Net Gold Value: {total_net:.2f}€")
+    total_net = get_total_net_silver(prices)
+    print(f"🥈 Net Silver Value: {total_net:.2f}€")

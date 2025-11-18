@@ -3,6 +3,8 @@ This module provides the main menu for managing and displaying your financial po
 """
 
 from modules.gold_module import gold_summary
+from modules.silver_module import silver_summary
+from modules.bitcoin_module import bitcoin_summary
 from modules.receivables_module import receivables_summary
 from modules.cash_module import cash_summary
 from modules.stocks_module import stocks_summary
@@ -28,12 +30,14 @@ def print_menu():
     print("What would you like to do?".center(50))
     print("=" * 50)
     print("1. 💰 Gold Portfolio")
-    print("2. 📄 Receivables")
-    print("3. 🏦 Cash Overview")
-    print("4. 📉 Stock Portfolio")
-    print("5. 📊 Total Summary")
-    print("6. 📈 Portfolio Evolution")
-    print("7. 📤 Send Financial Summary")
+    print("2. 🥈 Silver Portfolio")
+    print("3. 🪙 Bitcoin")
+    print("4. 📄 Receivables")
+    print("5. 🏦 Cash Overview")
+    print("6. 📉 Stock Portfolio")
+    print("7. 📊 Total Summary")
+    print("8. 📈 Portfolio Evolution")
+    print("9. 📤 Send Financial Summary")
     print("q. 🚪 Exit")
     print("=" * 50)
 
@@ -46,22 +50,26 @@ def main_menu():
         print_menu()
         choice = input("👉 Your choice: ").strip()
 
-        if choice in ["1", "2", "3", "4", "5", "6", "7"]:
+        if choice in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
             print("=" * 50)
 
         if choice == "1":
             gold_summary()
         elif choice == "2":
-            receivables_summary()
+            silver_summary()
         elif choice == "3":
-            cash_summary()
+            bitcoin_summary()
         elif choice == "4":
-            stocks_summary()
+            receivables_summary()
         elif choice == "5":
-            overall_summary()
+            cash_summary()
         elif choice == "6":
-            show_portfolio_evolution()
+            stocks_summary()
         elif choice == "7":
+            overall_summary()
+        elif choice == "8":
+            show_portfolio_evolution()
+        elif choice == "9":
             print("📈 Overall Financial Summary:")
             print("=" * 50)
             send_overall_summary_to_discord()
