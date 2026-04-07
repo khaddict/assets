@@ -1,356 +1,364 @@
-# Personal Finance Dashboard 💰
+# Assets - Personal Finance Dashboard 💰
 
-This project is a Python-based personal finance dashboard that allows you to track various financial aspects, such as gold portfolio, silver portfolio, receivables, cash holdings, stock investments, bitcoin, and overall portfolio evolution. It fetches real-time data for gold, silver and bitcoin prices and displays summaries, helping you stay up-to-date with your financial situation.
+Portfolio management system for tracking precious metals, crypto, cash, and stocks with real-time pricing.
 
-## Features
+## Quick Start
 
-- **Gold Portfolio**: Tracks gold investments, calculates capital gains, tax, and net value.
-- **Silver Portfolio**: Tracks silver investments, calculates capital gains, tax, and net value.
-- **Receivables**: Displays a summary of the amounts owed to you by others.
-- **Cash Holdings**: Overview of your current cash balances across various accounts.
-- **Stock Portfolio**: Tracks stock investments, calculates taxes based on holding duration (before or after 5 years), and shows the net value after taxes.
-- **Bitcoin Portfolio**: Tracks Bitcoin investments, calculates capital gains, tax, and net value.
-- **Portfolio Evolution**: Plots the historical evolution of your overall portfolio.
-- **Overall Summary**: Provides a total overview of all assets and liabilities, displaying the total portfolio value.
-- **Send Financial Data to Discord**: Allows you to send financial summaries and portfolio data to a Discord channel via webhooks.
-- **Dynamic Data Fetching**: Fetches real-time gold prices from external sources.
-
-## Configuration
-
-Modify the `config.py` static file.
-
-OR USE AGE:
+### Web Dashboard (Recommended)
 
 ```bash
-age -r age1w6g5qyw26h2708rc7xmc2nduywyw7mls0fj2h0rpmqtxv6r2mfsqvfj0h3 -o config.py.age config.py # encrypt
-age -d -i ~/.age/key.txt config.py.age > config.py # decrypt
+cd assets_gui
+./run_local.sh
 ```
 
-## Install
+Open http://localhost:8501
 
-```
+### CLI Version
+
+```bash
+cd assets_cli
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python main.py
 ```
 
-## Code
+### Docker
+
+```bash
+cd assets_gui
+docker build -t assets-gui .
+docker run -p 8501:8501 -p 8001:8001 -v assets-data:/app/data assets-gui
+```
+
+## Features
+
+- 💰 **Precious Metals**: Gold & silver tracking with capital gains
+- 🪙 **Bitcoin**: Strike integration with real-time pricing
+- 💵 **Cash & Receivables**: Multi-account management
+- 📈 **Stocks**: Tax-optimized portfolio tracking
+- 📊 **Analytics**: Portfolio evolution and reporting
+- 🔄 **Real-time Prices**: Live market data integration
+
+## Architecture
+
+| Component | CLI | GUI |
+|-----------|-----|-----|
+| Interface | Terminal menu | Web (Streamlit) |
+| Database | Config file | SQLite |
+| API | - | FastAPI |
+| Admin Tools | - | ✅ Dashboard |
+| Backups | Manual | ✅ Automated |
+| Docker | - | ✅ Ready |
+
+## Structure
 
 ```
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: 1
-==================================================
-             💰 Gold Portfolio Details
-==================================================
-Gold Maple Leaf 🍁
-    - Purchase date: 2025-01-01
-    - Purchase price: 3000.00€
-    - Sell price: 3408.50€
-    - Capital gain: 408.50€
-    - Flat tax (11.5%): 391.98€
-    - Capital gain tax (36.2%): 147.88€
-    - Tax regime: capital gain (tax = 147.88€)
-    💸 Net received: 3260.62€
-Gold Bar 100g 💰
-    - Purchase date: 2025-01-02
-    - Purchase price: 8000.00€
-    - Sell price: 10959.00€
-    - Capital gain: 2959.00€
-    - Flat tax (11.5%): 1260.29€
-    - Capital gain tax (36.2%): 1071.16€
-    - Tax regime: capital gain (tax = 1071.16€)
-    💸 Net received: 9887.84€
-Gold Bar 1oz 💰
-    - Purchase date: 2025-01-03
-    - Purchase price: 3000.50€
-    - Sell price: 3373.00€
-    - Capital gain: 372.50€
-    - Flat tax (11.5%): 387.90€
-    - Capital gain tax (36.2%): 134.84€
-    - Tax regime: capital gain (tax = 134.84€)
-    💸 Net received: 3238.16€
-==================================================
-                  💰 Gold Summary
-==================================================
-Gold Maple Leaf 🍁 (1 units)
-  - Total gross: 3408.50€
-  - Total tax: 147.88€
-  💸 Net received: 3260.62€
+assets/
+├── assets_cli/       # Terminal-based dashboard
+├── assets_gui/       # Web-based dashboard
+│   ├── Dockerfile
+│   └── streamlit_app/
+│       ├── app.py           # Streamlit UI
+│       ├── pricing_api.py    # FastAPI service
+│       └── data/
+└── README.md
+```
 
-Gold Bar 100g 💰 (1 units)
-  - Total gross: 10959.00€
-  - Total tax: 1071.16€
-  💸 Net received: 9887.84€
+## Documentation
 
-Gold Bar 1oz 💰 (1 units)
-  - Total gross: 3373.00€
-  - Total tax: 134.84€
-  💸 Net received: 3238.16€
+- [assets_gui README](assets_gui/README.md) - Web dashboard setup & deployment
+- [assets_cli README](assets_cli/README.md) - CLI setup & configuration
 
-💰 Net Gold Value: 16386.62€
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: 2
-==================================================
-            🥈 Silver Portfolio Details
-==================================================
-Silver Maple Leaf 🍁
-    - Purchase date: 2025-01-01
-    - Purchase price: 50.00€
-    - Sell price: 40.20€
-    - Capital gain: 0.00€
-    - Flat tax (11.5%): 4.62€
-    - Capital gain tax (36.2%): 0.00€
-    - Tax regime: capital gain (tax = 0.00€)
-    💸 Net received: 40.20€
-Silver Maple Leaf 🍁
-    - Purchase date: 2025-01-02
-    - Purchase price: 50.00€
-    - Sell price: 40.20€
-    - Capital gain: 0.00€
-    - Flat tax (11.5%): 4.62€
-    - Capital gain tax (36.2%): 0.00€
-    - Tax regime: capital gain (tax = 0.00€)
-    💸 Net received: 40.20€
-==================================================
-                 🥈 Silver Summary
-==================================================
-Silver Maple Leaf 🍁 (2 units)
-  - Total gross: 80.40€
-  - Total tax: 0.00€
-  💸 Net received: 80.40€
+## Stack
 
-🥈 Net Silver Value: 80.40€
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: 3
-==================================================
-                🔗 Bitcoin Summary
-==================================================
-BTC balance: 0.01551969 BTC
-Total invested on Strike: 2000.00€
-Current BTC price: 80399.00€
-Gross liquidation value: 1247.77€
-Capital gain (taxable): -752.23€
-Taxes (30% of -752.23): 0.00€
-💸 Net if sold now: 1247.77€
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: 4
-==================================================
-                  📄 Receivables
-==================================================
-📄 Toto owes you 150.00€
-📄 Tata owes you 200.00€
+**GUI**: Streamlit + FastAPI + SQLite + pandas  
+**CLI**: Python + requests + BeautifulSoup
+```
+## Quick Start
 
-💰 Total Receivables: 350.00€
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: 5
-==================================================
-             🏦 Cash Holdings Summary
-==================================================
-🏠 Home Cash: 10.00€
-🏦 Checking Account: 10.00€
-📕 Livret A: 10.00€
-🌱 LDDS: 10.00€
-📘 BFM: 10.00€
+### 🚀 Modern Web Dashboard (Recommended)
 
-🤑 Total Cash: 50.00€
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: 6
-==================================================
-            📉 Stock Portfolio Summary
-==================================================
-💼 Initial investment: 1000.00€
-📊 Current value: 1400.00€
+```bash
+cd assets_gui
+./run_local.sh
+```
 
-🔍 Gain: 400.00€
-🧾 Tax regime: Before 5 years (30%)
-💸 Tax to pay: 120.00€
+Then visit:
+- 🌐 **UI**: http://localhost:8501
+- 🔌 **API**: http://localhost:8001
 
-💵 Net value after tax: 1280.00€
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: 7
-==================================================
-           📈 Overall Financial Summary
-==================================================
-💰 Gold: 16386.62€
-🥈 Silver: 80.40€
-📄 Receivables: 350.00€
-🏦 Cash: 50.00€
-📈 Stocks: 1280.00€
-🔗 Bitcoin: 1247.77€
+### 🐳 Docker Deployment
 
-💼 Total Portfolio Value: 19394.79€
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: 8
-==================================================
-==================================================
-         📊 Portfolio Evolution Over Time
-==================================================
-Mar 2025 | █████████████ 11066.12 €
-Apr 2025 | ████████████████████ 16077.21 €
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: 9
-==================================================
-📈 Overall Financial Summary:
-==================================================
-✅ Message sent successfully!
-==================================================
-📊 Portfolio Evolution Over Time:
-==================================================
-✅ Message sent successfully!
-==================================================
-       🧭  Welcome to Your Assets Dashboard
-==================================================
-            What would you like to do?
-==================================================
-1. 💰 Gold Portfolio
-2. 🥈 Silver Portfolio
-3. 🪙 Bitcoin
-4. 📄 Receivables
-5. 🏦 Cash Overview
-6. 📉 Stock Portfolio
-7. 📊 Total Summary
-8. 📈 Portfolio Evolution
-9. 📤 Send Financial Summary
-q. 🚪 Exit
-==================================================
-👉 Your choice: q
-==================================================
-👋 Goodbye! See you soon.
-==================================================
+```bash
+cd assets_gui
+
+# Build image
+docker build -t assets-gui:latest .
+
+# Run with persistent data
+docker run -p 8001:8001 -p 8501:8501 \
+  -v assets-data:/app/data \
+  assets-gui:latest
+```
+
+### 📺 Legacy CLI
+
+```bash
+cd assets_cli
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python main.py
+```
+
+## Technology Stack
+
+### assets_cli
+
+- **Language**: Python 3
+- **UI**: Terminal-based CLI with interactive menus
+- **APIs**: CoinGecko (BTC pricing), web scraping (gold/silver)
+- **Features**: Discord webhook integration, encrypted config support
+
+### assets_gui
+
+- **Frontend**: Streamlit (Python-based web framework)
+- **Backend API**: FastAPI (modern REST API)
+- **Database**: SQLite3
+- **Pricing**: FastAPI local service with intelligent caching
+- **Data**: pandas for analytics
+- **Deployment**: Docker containerization
+
+## Feature Comparison
+
+| Feature | CLI | GUI |
+|---------|-----|-----|
+| Web Interface | ❌ | ✅ |
+| Real-time Dashboard | ❌ | ✅ |
+| Data Persistence | ⚠️ Config file | ✅ SQLite |
+| Admin Tools | Limited | ✅ Full suite |
+| Backup/Restore | Manual | ✅ Automated |
+| API Access | ❌ | ✅ FastAPI |
+| Docker Support | ❌ | ✅ Production-ready |
+| Historical Tracking | Basic | ✅ Advanced |
+| Scalability | Single user | Multi-user ready |
+
+## Configuration
+
+### assets_gui configuration
+
+1. **Environment Variables** (optional):
+   ```bash
+   cp .env.example .env
+   # Edit with your API keys
+   ```
+
+2. **Runtime Settings**:
+   ```json
+   // streamlit_app/data/runtime_settings.json
+   {
+     "pricing_api": {
+       "cache_ttl_seconds": 60,
+       "request_timeout_seconds": 10,
+       "request_retries": 3
+     }
+   }
+   ```
+
+3. **Streamlit Secrets** (for sensitive data):
+   ```toml
+   # ~/.streamlit/secrets.toml
+   api_key = "your_api_key"
+   ```
+
+### assets_cli configuration
+
+Use `config.py` template:
+
+```bash
+cp config.py.template config.py
+# Edit with your portfolio data
+```
+
+Optional encryption:
+
+```bash
+# Encrypt config
+age -r age_key config.py -o config.py.age
+
+# Decrypt config
+age -d -i ~/.age/key.txt config.py.age > config.py
+```
+
+## Features by Component
+
+### 💰 Asset Management
+
+Both platforms support:
+
+- **Gold Portfolio**
+  - Real-time price fetching
+  - Capital gains calculation
+  - Tax computation (30% flat tax - PFU)
+  - Net liquidation value
+
+- **Silver Portfolio**
+  - Same features as gold
+  - Separate position tracking
+
+- **Bitcoin**
+  - Strike API integration
+  - Real-time BTC/EUR pricing
+  - Capital gains and tax reporting
+  - Multi-exchange support (GUI only)
+
+- **Stock Portfolio**
+  - Holding period tax analysis
+  - Different rates for <5 years vs ≥5 years
+  - Position management
+
+### 💵 Cash & Receivables
+
+- Multiple cash accounts
+- Receivables tracking
+- Debt management
+- Quick summary views
+
+### 📊 Analytics & Reporting
+
+- Portfolio value evolution charts
+- Asset allocation visualization
+- Historical performance tracking
+- Export capabilities (CSV, JSON)
+- Discord integration (CLI)
+
+### 🛠️ Administrative Tools
+
+- **GUI Only Features**:
+  - Database health checks
+  - Automated backups with versioning
+  - One-click data restore
+  - Export/import workflows
+  - Data purging and cleanup
+
+## API Reference
+
+### FastAPI Pricing Service (GUI)
+
+Base URL: `http://localhost:8001`
+
+**Health Check**:
+```bash
+curl http://localhost:8001/health
+```
+
+**Fetch Prices**:
+```bash
+curl http://localhost:8001/prices
+```
+
+**Get Settings**:
+```bash
+curl http://localhost:8001/settings
+```
+
+See [assets_gui README](assets_gui/README.md) for full API documentation.
+
+## Deployment
+
+### Local Development
+
+```bash
+cd assets_gui
+./run_local.sh
+```
+
+### Production with Docker
+
+```bash
+# Build
+docker build -t assets-gui:prod .
+
+# Run
+docker run -d \
+  --name assets-gui \
+  -p 8001:8001 \
+  -p 8501:8501 \
+  -v assets-data:/app/data \
+  -e STRIKE_API_TOKEN="your_token" \
+  --restart unless-stopped \
+  assets-gui:prod
+```
+
+### Kubernetes
+
+Use the provided Dockerfile with standard Kubernetes manifests:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assets-gui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: assets-gui
+  template:
+    metadata:
+      labels:
+        app: assets-gui
+    spec:
+      containers:
+      - name: assets-gui
+        image: assets-gui:latest
+        ports:
+        - containerPort: 8001
+        - containerPort: 8501
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: assets-data
+```
+
+## Troubleshooting
+
+### GUI Issues
+
+- **Port already in use**: 
+  ```bash
+  lsof -i :8501  # Find process
+  kill -9 <PID>  # Kill it
+  ```
+
+- **API connection failed**:
+  ```bash
+  curl http://localhost:8001/health  # Check API
+  ```
+
+- **Database errors**:
+  - Use Admin > Health Check
+  - Restore from backup if needed
+
+### CLI Issues
+
+- **Config not found**: Ensure `config.py` exists (see `config.py.template`)
+- **API errors**: Check network connection and API rate limits
+- **Import errors**: Reinstall dependencies
+
+### Docker Issues
+
+```bash
+# View logs
+docker logs <container-id>
+
+# Restart container
+docker restart <container-id>
+
+# Shell into container
+docker exec -it <container-id> /bin/bash
 ```
