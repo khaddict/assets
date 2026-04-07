@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bullseye
+FROM python:3.11-slim-trixie
 
 WORKDIR /app
 
@@ -13,11 +13,17 @@ COPY streamlit_app/requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN pip install --no-cache-dir --upgrade "setuptools>=78.1.1" "wheel>=0.46.2"
+
 # Copy application code
 COPY streamlit_app/ .
 
 # Create data directory for SQLite and backups
 RUN mkdir -p /app/data/backups
+
+# Run as non-root user
+RUN useradd --create-home --uid 10001 appuser && chown -R appuser:appuser /app
+USER appuser
 
 # Expose ports
 # 8001: FastAPI pricing API

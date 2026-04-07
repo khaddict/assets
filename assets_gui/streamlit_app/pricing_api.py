@@ -81,9 +81,9 @@ REQUEST_RETRIES = int(RUNTIME_SETTINGS["pricing_api"]["request_retries"])
 REQUEST_BACKOFF_SECONDS = int(RUNTIME_SETTINGS["pricing_api"]["request_backoff_seconds"])
 
 STRIKE_API_TOKEN = os.getenv("STRIKE_API_TOKEN", "").strip()
-STRIKE_API_BASE_URL = os.getenv("STRIKE_API_BASE_URL", "https://api.strike.me").rstrip("/")
-STRIKE_SOURCE_CURRENCY = os.getenv("STRIKE_SOURCE_CURRENCY", "BTC").strip().upper()
-STRIKE_TARGET_CURRENCY = os.getenv("STRIKE_TARGET_CURRENCY", "EUR").strip().upper()
+STRIKE_API_BASE_URL = (os.getenv("STRIKE_API_BASE_URL") or "https://api.strike.me").strip().rstrip("/")
+STRIKE_SOURCE_CURRENCY = (os.getenv("STRIKE_SOURCE_CURRENCY") or "BTC").strip().upper()
+STRIKE_TARGET_CURRENCY = (os.getenv("STRIKE_TARGET_CURRENCY") or "EUR").strip().upper()
 
 
 def request_with_retry(url: str, timeout: int, headers: dict[str, str] | None = None) -> requests.Response:
